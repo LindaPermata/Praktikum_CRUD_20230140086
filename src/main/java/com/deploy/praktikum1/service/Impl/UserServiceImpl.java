@@ -10,6 +10,7 @@ import com.deploy.praktikum1.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,7 +42,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUser() {
-        return List.of();
+        List<User> users = userRepository.findAll();
+        List<UserDto> userDto = new ArrayList<>();
+        for (User user : users) {
+            userDto.add(UserMapper.MAPPER.toUserDtoData(user));
+        }
+        return userDto;
     }
 
     @Override
